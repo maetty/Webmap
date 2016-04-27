@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8" />
+    <title>Wikipedia</title>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+	<script src="etappe02.js"></script>
+	<script src="etappe03.js"></script>
+	<script src="etappe04.js"></script>
+	<link rel="stylesheet" href="adler.css" />
+	<script>
+		window.onload = function () {
+			L.tileLayer("http://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png", {
+				subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+				attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+			}).addTo(adlerKarte);
+		};
+		
+	</script>
+	<script>
+		window.onload = function () {
+			var adlerKarte = L.map("adlerkarteDiv");
+
+			var layers = { // http://www.basemap.at/wmts/1.0.0/WMTSCapabilities.xml
+				geolandbasemap : L.tileLayer("http://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png", {
+					subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+					attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+				}),
+				bmapoverlay : L.tileLayer("http://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png", {
+					subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+					attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+				}),
+				bmapgrau : L.tileLayer("http://{s}.wien.gv.at/basemap/bmapgrau/normal/google3857/{z}/{y}/{x}.png", {
+					subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+					attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+				}),
+				bmaphidpi : L.tileLayer("http://{s}.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg", {
+					subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+					attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+				}),
+				bmaporthofoto30cm : L.tileLayer("http://{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg", {
+					subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+					attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+				})
+			};
+
+			L.control.layers({
+				"Geoland Basemap" : layers.geolandbasemap,
+				"Geoland Basemap Overlay" : layers.bmapoverlay,
+				"Geoland Basemap Grau": layers.bmapgrau,
+				"Geoland Basemap High DPI" : layers.bmaphidpi,
+				"Geoland Basemap Orthofoto" : layers.bmaporthofoto30cm
+			}).addTo(adlerKarte)
+
+			var m1 = L.marker([47, 11]);
+			var m2 = L.marker([47.6, 10]);
+			
+			var markerGruppe = L.featureGroup([m1,m2]);
+			adlerKarte.fitBounds(markerGruppe.getBounds());
+			//L.control.layers({"OSM":layers},{"Tracks":markerGruppe}).addTo(adlerKarte);			
+			var bounds = markerGruppe.getBounds();
+			
+			var url = 'http://api.geonames.org/wikipediaSearchJSON?username=oeggl'
+				+'&minx='+bounds.getWest()
+				+'&miny='+bounds.getSouth()
+				+'&maxx='+bounds.getEast()
+				+'&maxy='+bounds.getNorth()
+				+'&size=mini_square&mapfilter=true&callback=Wikipedia';
+				
+			var script = document.createElement("script");
+			script.src = url;
+			document.getElementsByTagName('head')[0].appendChild(script);
+				window.Wikipedia = function (data) {
+					//marker add; popup add, link add
+				for (var i=0; i<data.geonames.length; i++) {
+					console.log("Wikipedia: "+data.geonames[i].title);
+					var marker = L.marker(data.geonames[i].lat, data.geonames[i].lng);
+					marker.bindPopup("<a href>"+data.geonames[i].title"</a>")
+				}.addTo(adlerKarte);
+					}
+				}
+		};	
+	</script>
+  </head>
+  <body>
+    <h1>Adlerweg</h1>
+	<div id="adlerkarteDiv"></div>
+
+  </body>
+</html>

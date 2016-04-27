@@ -1,0 +1,100 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+body{
+	font-family: Trebuchet;
+	font-size: large;
+	line-height: 1.5;
+	width: 990px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background-color: lightgrey;
+}
+
+#Page{
+	width: 970px;
+	-moz-box-shadow: 5px 5px 5px 10px #999;
+	-webkit-box-shadow: 5px 5px 5px 10px #999;
+	box-shadow: 5px 5px 5px 10px #999;
+}
+
+#Background{
+		background-image: url("../Img/B1.JPG");
+		width: 970px;
+		min-height: 900px;
+	
+}
+
+#Header {
+	background-image: url("../Img/B2.JPG");
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-color: white;
+	height: 200px;
+	width: 970px;
+}
+
+#Footer{
+	padding-bottom: 40px;
+	padding-top: 10px;
+	border-top: white;
+	background-color: white
+}
+
+nav{
+	width: 850px;
+	height: 30px;
+	float: left;
+	margin-left: 30px;
+	margin-top: 90px;
+	position: relative;
+}
+
+nav ul{
+	float: left;
+	list-style-type: none;
+	margin-left: 20px;
+}
+
+nav ul a{
+	display: block;
+	background-color: white;
+	color: black;
+	filter:alpha(opacity=70); 
+	opacity:0.7;
+	-moz-opacity:0.7; 
+	-khtml-opacity:0.7; 
+	-opera-opacity:0.7; 
+	text-decoration: none;
+	font-size: 28px;
+}
+
+nav ul a:hover {
+	background-color: grey;
+	color: whitesmoke;
+}
+
+#Text{
+	width: 930px;
+	margin: 0px 20px 0px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+h3{
+	padding-top: 15px;
+	padding-bottom: 10px;
+	color: black;
+	font-style: italic;
+}
+
+h2{
+	padding-top: 40px;
+	margin-bottom: 20px;
+	padding-left: 20px;
+	color: black;
+}

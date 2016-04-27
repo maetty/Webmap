@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Untersuchungsgebiet</title>
+<!--[if lt IE 9]>
+<script src="html5shiv/html5shiv.js"></script>
+<![endif]-->
+
+<link rel="stylesheet" type="text/css" href="css/Main.css" />
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+</head>
+<body>
+
+<div id="Page">
+
+	<div id="Header">
+		<nav>
+			<ul><a href="Index.html">Startseite</a></ul>
+			<ul><a href="AOI.html">Untersuchungsgebiet</a></ul>
+			<ul><a href="Danger.html">Naturgefahren</a></ul>	
+			<ul><a href="Plan.html">Gefahrenzonenplan</a></ul>
+		</nav>
+		
+	</div>
+	
+	<div id="Background">
+	<div id="Text">
+		<h2>Das Untersuchungsgebiet</h2>
+		
+		<p>Das Untersuchungsgebiet liegt im Norden von Island in der Gegend um Ólafsfjörður.</p>
+		<p>Ólafsfjörður liegt im Norden Islands auf der Halbinsel Tröllaskagi am gleichnamigen Fjord, einem westlichen Seitenarm des Eyjafjörður. Südlich der Stadt liegt der See Ólafsfjarðarvatn, der über die Ólafsfjarðará mit dem Fjord verbunden ist.</p>
+		
+		
+		<div id="map" style="width:900px;height:600px"></div>
+		<script>
+			var map = L.map('map', {
+				center : [66.063146, -18.667018],
+				zoom : 11
+			});
+			L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+				attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap contributors</a>'
+			}).addTo(map);
+			
+			var marker = L.marker([66.071496, -18.655409]).addTo(map);
+			var markL = L.marker([66.063298, -18.656853]).addTo(map);
+			var markM = L.marker([66.052696, -18.670855]).addTo(map);
+			marker.bindPopup("<b>Ólafsfjörður</b>").openPopup();
+			markL.bindPopup("<b>Lawine</b>");
+			markM.bindPopup("<b>Mure</b>");
+		</script>
+		
+	</div>
+	</div>
+	
+	
+	<div id="Footer">
+	<p style="float:left; padding-left: 640px;"><a href="Kontakt.html">Kontakt</a></p>
+	<p style="float:right; padding-right: 35px;"><a href="Haftung.html">Haftungsausschluss</a></p>
+	</div>	
+	
+</div>
+
+</body>
+</html>

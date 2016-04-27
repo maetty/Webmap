@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Gefahrenzonenplan</title>
+<!--[if lt IE 9]>
+<script src="html5shiv/html5shiv.js"></script>
+<![endif]-->
+
+<link rel="stylesheet" type="text/css" href="css/Main.css" />
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+<script>
+    window.onload = function () {
+        var map = L.map('map', {
+            center : [47.264269, 11.385312],
+            zoom : 16
+        });
+        L.tileLayer("http://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png", {
+            subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+            attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+        }).addTo(map);
+    };
+		
+</script>
+<script>
+    window.onload = function () {
+        var layers = { // http://www.basemap.at/wmts/1.0.0/WMTSCapabilities.xml
+            geolandbasemap : L.tileLayer("http://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png", {
+                subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+                attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+            }),
+            bmapoverlay : L.tileLayer("http://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png", {
+                subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+                attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+            }),
+            bmapgrau : L.tileLayer("http://{s}.wien.gv.at/basemap/bmapgrau/normal/google3857/{z}/{y}/{x}.png", {
+                subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+                attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+            }),
+            bmaphidpi : L.tileLayer("http://{s}.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg", {
+                subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+                attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+            }),
+            bmaporthofoto30cm : L.tileLayer("http://{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg", {
+                subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+                attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+            })
+        };
+        var map = L.map('map', {
+            layers : [layers.geolandbasemap],
+            center : [47.264269, 11.385312],
+            zoom : 11
+        });
+        L.control.layers({
+            "Geoland Basemap" : layers.geolandbasemap,
+            "Geoland Basemap Overlay" : layers.bmapoverlay,
+            "Geoland Basemap Grau": layers.bmapgrau,
+            "Geoland Basemap High DPI" : layers.bmaphidpi,
+            "Geoland Basemap Orthofoto" : layers.bmaporthofoto30cm
+        }).addTo(map)
+		
+		L.marker([47.264269, 11.385312]).addTo(map);
+		L.marker([47.230207, 11.414356]).addTo(map);
+		L.marker([47.208521, 11.460704]).addTo(map);
+		L.marker([47.182958, 11.281548]).addTo(map);
+		L.marker([47.312440, 11.383575]).addTo(map);
+		
+		var line = L.polyline(
+		[
+		[47.264269,11.385312], 
+		[47.230207,11.414356],
+		[47.208521,11.460704],
+		[47.182958,11.281548],
+		[47.312440,11.383575]
+		], {color: 'red',
+			weight: 3,
+			opacity: 0.5,
+			smoothFactor: 1}).addTo(map);
+		
+        L.control.scale({
+            'imperial' : false
+        }).addTo(map);
+    };
+</script>
+</head>
+<body>
+
+<div id="Page">
+
+	<div id="Header">
+		<nav>
+			<ul><a href="Index.html">Startseite</a></ul>
+			<ul><a href="AOI.html">Untersuchungsgebiet</a></ul>
+			<ul><a href="Danger.html">Naturgefahren</a></ul>	
+			<ul><a href="Plan.html">Gefahrenzonenplan</a></ul>				
+		</nav>
+		
+	</div>
+	<div id="Background">
+		<div id="map" style="width:900px;height:600px"></div>
+	</div>
+		
+	<div id="Footer">
+	<p style="float:left; padding-left: 640px;"><a href="Kontakt.html">Kontakt</a></p>
+	<p style="float:right; padding-right: 35px;"><a href="Haftung.html">Haftungsausschluss</a></p>
+	</div>	
+	
+</div>
+
+</body>
+</html>
